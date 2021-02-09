@@ -8,6 +8,7 @@ use Phalcon\DI\FactoryDefault;
 use Phalcon\Loader;
 use Phalcon\Mvc\Application;
 use Phalcon\Mvc\View;
+use Phalcon\Exception;
 
 try {
     /** Autoloader */
@@ -32,6 +33,6 @@ try {
     $app = new Application($di);
     echo $app->handle()->getContent();
 
-} catch(\Phalcon\Exception $exception) {
+} catch(Exception $exception) {
     echo $exception->getMessage();
 }

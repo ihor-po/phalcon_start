@@ -1,7 +1,9 @@
 <?php
 
 
-class LoginController extends \Phalcon\Mvc\Controller
+use Phalcon\Mvc\Controller;
+
+class LoginController extends Controller
 {
     public function onConstruct()
     {
