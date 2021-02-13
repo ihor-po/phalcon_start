@@ -12,6 +12,7 @@ use Phalcon\Loader;
 use Phalcon\Mvc\Application;
 use Phalcon\Mvc\View;
 use Phalcon\Exception;
+use Phalcon\Mvc\Model\MetaData\Apc As ApcMetaData;
 
 try {
     /** Autoloader */
@@ -42,6 +43,22 @@ try {
 
         return $view;
     });
+
+    $di->setShared('session', function () {
+        $session = new \Phalcon\Session\Adapter\Files();
+        $session->start();
+
+        return $session;
+    });
+
+    $di['modelsMetadata'] = function () {
+        $metadata = new ApcMetaData([
+            'lifetime' => 86400,
+            'prefix' => 'test'
+        ]);
+
+        return $metadata;
+    };
 
     /** Deploy the App */
     $app = new Application($di);

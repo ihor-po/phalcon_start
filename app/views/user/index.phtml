@@ -2,9 +2,19 @@
 <?php if (property_exists($single, 'id')):?>
     <?=$single->id?>
     <?=$single->email?>
+    <h5>Projects</h5>
+    <?php foreach ($single->project as $project): ?>
+        <p>
+            <?=$project->id?>
+            <?=$project->title?>
+        </p>
+    <?php endforeach;?>
+
+<br/>
 <?php endif;?>
 <hr>
 <?php foreach ($all as $user): ?>
     <?=$user->id?>
     <?=$user->email?>
+<br/>
 <?php endforeach;?>

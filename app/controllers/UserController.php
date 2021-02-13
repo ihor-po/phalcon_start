@@ -18,9 +18,8 @@ class UserController extends Controller
     public function createAction()
     {
         $user = new User();
-        $user->email = 'test@test.com';
+        $user->email = 'test+1@test.com';
         $user->password = 'test';
-        $user->created_at = date('Y-m-d H:i:s');
         $result = $user->save();
 
         if (!$result) {
@@ -28,9 +27,25 @@ class UserController extends Controller
         }
     }
 
+    public function createAssocAction()
+    {
+        $user = User::findFirstById(2);
+
+        if (!$user) {
+            echo 'User does not exist';
+            die;
+        }
+
+        $project = new Project();
+        $project->user = $user;
+        $project->title = "MoonWalker";
+
+        $result = $project->save();
+    }
+
     public function updateAction()
     {
-        $user = User::findFirstById(1);
+        $user = User::findFirstById(4);
 
         if (!$user) {
             echo 'User does not exist';
@@ -38,7 +53,6 @@ class UserController extends Controller
         }
 
         $user->email = 'new-email@test.com';
-        $user->updated_at = date('Y-m-d H:i:s');
         $result = $user->update();
 
         if (!$result) {
