@@ -3,7 +3,7 @@
 
 use Phalcon\Mvc\Controller;
 
-class UserController extends Controller
+class ProjectController extends Controller
 {
     public function indexAction()
     {

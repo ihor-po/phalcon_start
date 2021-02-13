@@ -74,4 +74,10 @@ class UserController extends Controller
             return print_r($user->getMessages());
         }
     }
+
+    public function loginAction()
+    {
+        $post = $this->request->getPost();
+        print_r($post);
+    }
 }

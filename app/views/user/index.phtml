@@ -1,4 +1,13 @@
 <h2>Users</h2>
+
+<div>
+    <form method="post" action="user/login">
+        <input type="text" id="login" name="login" placeholder="login">
+        <input type="password" id="password" name="password" placeholder="password">
+        <button type="submit">Login</button>
+    </form>
+</div>
+
 <?php if (property_exists($single, 'id')):?>
     <?=$single->id?>
     <?=$single->email?>

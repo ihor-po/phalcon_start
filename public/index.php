@@ -10,16 +10,19 @@ use Phalcon\Db\Adapter\Pdo\Mysql;
 use Phalcon\DI\FactoryDefault;
 use Phalcon\Loader;
 use Phalcon\Mvc\Application;
+use Phalcon\Mvc\Router;
 use Phalcon\Mvc\View;
 use Phalcon\Exception;
 use Phalcon\Mvc\Model\MetaData\Apc As ApcMetaData;
+use Phalcon\Session\Adapter\Files;
 
 try {
     /** Autoloader */
     $loader = new Loader();
     $loader->registerDirs([
         __DIR__ . '/../app/controllers',
-        __DIR__ . '/../app/models'
+        __DIR__ . '/../app/models',
+        __DIR__ . '/../app/config'
     ]);
 
     $loader->register();
@@ -44,8 +47,15 @@ try {
         return $view;
     });
 
+    $di->set('router', function () {
+        $router = new Router();
+        $router->mount(new Routes());
+
+        return $router;
+    });
+
     $di->setShared('session', function () {
-        $session = new \Phalcon\Session\Adapter\Files();
+        $session = new Files();
         $session->start();
 
         return $session;
