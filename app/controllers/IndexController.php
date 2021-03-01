@@ -1,13 +1,13 @@
 <?php
 
+use \Phalcon\Tag;
 
-use Phalcon\Mvc\Controller;
-
-class IndexController extends Controller
+class IndexController extends BaseController
 {
     public function indexAction()
     {
-        echo "Hallo World";
+        Tag::setTitle('Home');
+        parent::initialize();
     }
 
     public function startSessionAction()
