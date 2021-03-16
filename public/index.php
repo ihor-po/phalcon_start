@@ -10,6 +10,7 @@ use Phalcon\Db\Adapter\Pdo\Mysql;
 use Phalcon\DI\FactoryDefault;
 use Phalcon\Loader;
 use Phalcon\Mvc\Application;
+use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\Router;
 use Phalcon\Mvc\View;
 use Phalcon\Exception;
@@ -72,6 +73,22 @@ try {
 
         return $metadata;
     };
+
+    // Custom dispatcher (Overrides the default)
+    $di->set('dispatcher', function() use($di) {
+        $eventsManager = $di->getShared('eventsManager');
+
+        /** Custom ACL Class */
+        $permission = new Permission();
+
+        // Listen for permission class
+        $eventsManager->attach('dispatch', $permission);
+
+        $dispatcher = new Dispatcher();
+        $dispatcher->setEventsManager($eventsManager);
+
+        return $dispatcher;
+    });
 
     /** Deploy the App */
     $app = new Application($di);
