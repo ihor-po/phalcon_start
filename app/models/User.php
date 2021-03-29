@@ -5,6 +5,12 @@ use Phalcon\Mvc\Model\Behavior\SoftDelete;
 
 class User extends BaseModel
 {
+    public $id;
+
+    public $email;
+
+    public $role;
+
     public function initialize()
     {
         $this->setSource('users');

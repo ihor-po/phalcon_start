@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+a:5:{i:0;s:266:"<!DOCTYPE html>
 <html lang="en">
 <head>
-    {{ getTitle() }}
+    <?= $this->tag->gettitle() ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{ this.assets.outputCss('style') }}
-    {{ this.assets.outputJs('js') }}
-    {% block head %}
+    <?= $this->assets->outputCss('style') ?>
+    <?= $this->assets->outputJs('js') ?>
+    ";s:4:"head";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:6:"
 
-    {% endblock %}
+    ";s:4:"file";s:32:"../app/views/templates/base.volt";s:4:"line";i:11;}}i:1;s:1207:"
 </head>
 <body>
     <div class="navbar navbar-default">
@@ -38,10 +38,10 @@
         </div>
     </div>
 
-    {{ flash.output() }}
+    <?= $this->flash->output() ?>
 
-    {% block content %}
+    ";s:7:"content";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:6:"
 
-    {% endblock %}
+    ";s:4:"file";s:32:"../app/views/templates/base.volt";s:4:"line";i:45;}}i:2;s:16:"
 </body>
-</html>
+</html>";}
