@@ -38,10 +38,14 @@
         </div>
     </div>
 
+    <div class="container">
     {{ flash.output() }}
 
-    {% block content %}
+        <div>
+            {% block content %}
 
-    {% endblock %}
+            {% endblock %}
+        </div>
+    </div>
 </body>
 </html>

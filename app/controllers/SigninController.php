@@ -13,28 +13,31 @@ class SigninController extends BaseController
 
     public function signinAction()
     {
+        if ($this->security->checkToken() === false) {
+            $this->flash->error('Invalid CSRF Token');
+            $this->response->redirect('signin/index');
+            return;
+        }
+
+
         $this->view->disable();
 
         if (!$this->request->isPost()) {
             return;
         }
 
-        $user = User::findFirst([
-            'email = :email:
-            AND
-            password = :password:',
-            "bind" => [
-                'email' => $this->request->getPost('email'),
-                'password' => $this->request->getPost('password')
-            ]
-        ]);
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
 
-        if ($user) {
+        $user = User::findFirstByEmail($email);
 
-            $this->session->set('id', $user->id);
-            $this->session->set('role', $user->role);
-            $this->response->redirect('dashboard/index');
-            return;
+        if ($user instanceof User) {
+            if ($this->security->checkHash($password, $user->password)) {
+                $this->session->set('id', $user->id);
+                $this->session->set('role', $user->role);
+                $this->response->redirect('dashboard/index');
+                return;
+            }
         }
 
         $this->flash->error('Incorrect Credentials');
