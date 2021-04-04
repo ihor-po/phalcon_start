@@ -25,8 +25,9 @@ class IndexController extends BaseController
         $this->session->remove('name');
     }
 
-    public function destroySessionAction()
+    public function signoutAction()
     {
         $this->session->destroy();
+        $this->response->redirect('index/');
     }
 }

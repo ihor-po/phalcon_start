@@ -20,7 +20,7 @@ class Permission extends Plugin
     ];
 
     protected $_userResources = [
-        'user' => ['*']
+        'dashboard' => ['*']
     ];
 
     protected $_adminResources = [
@@ -29,6 +29,8 @@ class Permission extends Plugin
 
     public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
     {
+//        $this->session->destroy();
+
         $role = $this->session->get('role');
 
         if (!$role) {

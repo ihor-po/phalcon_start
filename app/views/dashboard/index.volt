@@ -2,6 +2,9 @@
 
 {% block content %}
     <div class="jumbotron">
-        <h1>Admin</h1>
+        <h1>Dashboard</h1>
+        <p>
+            Welcome user
+        </p>
     </div>
 {% endblock %}

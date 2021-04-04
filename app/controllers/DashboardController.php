@@ -7,8 +7,7 @@ class DashboardController extends BaseController
 {
     public function indexAction()
     {
-        echo 'Dashboard';
-//        Tag::setTitle('Dashboard');
-//        parent::initialize();
+        Tag::setTitle('Dashboard');
+        parent::initialize();
     }
 }
