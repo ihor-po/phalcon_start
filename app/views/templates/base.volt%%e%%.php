@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+a:5:{i:0;s:266:"<!DOCTYPE html>
 <html lang="en">
 <head>
-    {{ getTitle() }}
+    <?= $this->tag->gettitle() ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{ this.assets.outputCss('style') }}
-    {{ this.assets.outputJs('js') }}
-    {% block head %}
+    <?= $this->assets->outputCss('style') ?>
+    <?= $this->assets->outputJs('js') ?>
+    ";s:4:"head";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:6:"
 
-    {% endblock %}
+    ";s:4:"file";s:32:"../app/views/templates/base.volt";s:4:"line";i:11;}}i:1;s:1288:"
 </head>
 <body>
     <div class="navbar navbar-default">
@@ -30,7 +30,7 @@
                 <a class="nav-link" href="#contact">Contact</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url('signin/index') }}">Signin</a>
+                <a class="nav-link" href="<?= $this->url->get('signin/index') ?>">Signin</a>
               </li>
             </ul>
           </div>
@@ -39,13 +39,13 @@
     </div>
 
     <div class="container">
-        {{ flash.output() }}
+        <?= $this->flash->output() ?>
 
         <div>
-        {% block content %}
+        ";s:7:"content";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:10:"
 
-        {% endblock %}
+        ";s:4:"file";s:32:"../app/views/templates/base.volt";s:4:"line";i:47;}}i:2;s:42:"
         </div>
     </div>
 </body>
-</html>
+</html>";}
