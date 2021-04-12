@@ -37,8 +37,9 @@
           </div>
         </nav>
 
+        {{ flash.output() }}
+
         <div class="d-flex justify-content-center">
-            {{ flash.output() }}
 
             {% block content %}
 

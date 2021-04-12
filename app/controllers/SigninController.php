@@ -36,8 +36,7 @@ class SigninController extends BaseController
 
         if ($user instanceof User) {
             if ($this->security->checkHash($password, $user->password)) {
-                $this->session->set('id', $user->id);
-                $this->session->set('role', $user->role);
+                $this->createSessions($user);
                 $this->response->redirect('dashboard/index');
                 return;
             }
@@ -66,11 +65,6 @@ class SigninController extends BaseController
         $password = $this->request->getPost('password');
         $confirmPassword = $this->request->getPost('confirmPassword');
 
-        if (empty($email) || empty($password)) {
-            $this->flash->error('Your data are wrong.');
-            $this->response->redirect('signin/register');
-        }
-
         if ($password !== $confirmPassword) {
             $this->flash->error('Your password do not match.');
             $this->response->redirect('signin/register');
@@ -79,7 +73,18 @@ class SigninController extends BaseController
         $user = new User();
         $user->role = 'user';
         $user->email = $email;
-        $user->password = $this->security->hash($password);
+        $user->password = $password;
+
+        $result = $user->validation();
+        if (!$result) {
+            $output = [];
+            foreach ($user->getMessages() as $message) {
+                $output[] = $message;
+            }
+            $this->showValidationError($output, 'signin/register');
+            return;
+        }
+
         $result = $user->save();
 
         if (!$result) {
@@ -87,7 +92,25 @@ class SigninController extends BaseController
             foreach ($user->getMessages() as $message) {
                 $output[] = $message;
             }
+            $this->showValidationError($output, 'signin/register');
+            return;
         }
 
+        $this->createSessions($user);
+        $this->response->redirect('dashboard/index');
+        return;
+    }
+
+    private function createSessions(User $user): void
+    {
+        $this->session->set('id', $user->id);
+        $this->session->set('role', $user->role);
+    }
+
+    private function showValidationError(array $errors, string $url): void
+    {
+        $errors = implode(PHP_EOL, $errors);
+        $this->flash->error($errors);
+        $this->response->redirect($url);
     }
 }
