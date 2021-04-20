@@ -1,0 +1,15 @@
+{
+  "name": "vendor_name/first_start",
+  "description": "phalcon test project",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "ihor po"
+    }
+  ],
+  "require": {
+    "facebook/php-sdk": "v3.2.3",
+    "omnipay/omnipay": "2.3.2"
+  }
+}

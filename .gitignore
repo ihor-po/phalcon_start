@@ -1,4 +1,6 @@
 /.idea/*
-app/config/config.php
+/app/config/config.php
+/vendor/*
+composer.lock
 *.volt.php
 *.volt*.php

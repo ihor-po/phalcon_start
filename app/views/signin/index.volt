@@ -15,7 +15,7 @@
             <label for="password">Password</label>
                 <input type='password' class="form-control" placeholder="Password" id="password" name="password">
             </div>
-<!--             <input type="hidden" class="form-control" name="{{ security.getTokenKey() }}" value="{{ security.getToken() }}" /> -->
+            <input type="hidden" class="form-control" name="{{ security.getTokenKey() }}" value="{{ security.getToken() }}" />
             <button type="submit" class="btn btn-primary">Sign In</button>
         </form>
       </div>
