@@ -26,19 +26,30 @@ try {
         __DIR__ . '/../app/config'
     ]);
 
+    $loader->registerClasses([
+        'Components\User' => '../app/Components/User.php',
+        'Components\Helper' => '../app/Components/Helper.php'
+    ]);
+
     $loader->register();
 
     /** Dependency Injection */
     $di = new FactoryDefault();
 
-    $di->set('db',  function() {
-        return new Mysql([
-            'host' => DB_HOST,
-            'username' => DB_USER,
-            'password' => DB_PASSWORD,
-            'dbname' => DB_NAME,
-            'port' => DB_PORT,
-        ]);
+    // Return Config config
+    $di->setShared('config', function () use ($config) {
+        return $config;
+    });
+
+    // Return API config
+    $di->setShared('api', function () use ($api) {
+        return $api;
+    });
+
+    $di->set('db',  function() use($di) {
+        $dbConfig = $di->get('config')->get('db')->toArray();
+
+        return new Mysql($dbConfig);
     });
 
     $di->set('view', function() {
@@ -63,6 +74,14 @@ try {
         $session->start();
 
         return $session;
+    });
+
+    $di->setShared('component', function () {
+        $obj = new stdClass();
+        $obj->helper = new \Components\Helper;
+        $obj->user = new \Components\User;
+
+        return $obj;
     });
 
     // Flash Data (Temporary Data)

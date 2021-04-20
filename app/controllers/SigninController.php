@@ -17,13 +17,8 @@ class SigninController extends BaseController
 
     public function signinAction()
     {
-        if ($this->security->checkToken() === false) {
-            $this->flash->error('Invalid CSRF Token');
-            $this->response->redirect('signin/index');
-            return;
-        }
-
         $this->view->disable();
+        $this->component->helper->csrf('signin/index');
 
         if (!$this->request->isPost()) {
             return;
@@ -36,7 +31,7 @@ class SigninController extends BaseController
 
         if ($user instanceof User) {
             if ($this->security->checkHash($password, $user->password)) {
-                $this->createSessions($user);
+                $this->component->user->createSession($user);
                 $this->response->redirect('dashboard/index');
                 return;
             }
@@ -53,13 +48,8 @@ class SigninController extends BaseController
 
     public function registrationAction()
     {
-        if ($this->security->checkToken() === false) {
-            $this->flash->error('Invalid CSRF Token');
-            $this->response->redirect('signin/register');
-            return;
-        }
-
         $this->view->disable();
+        $this->component->helper->csrf('signin/register');
 
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
@@ -96,15 +86,8 @@ class SigninController extends BaseController
             return;
         }
 
-        $this->createSessions($user);
+        $this->component->user->createSession($user);
         $this->response->redirect('dashboard/index');
-        return;
-    }
-
-    private function createSessions(User $user): void
-    {
-        $this->session->set('id', $user->id);
-        $this->session->set('role', $user->role);
     }
 
     private function showValidationError(array $errors, string $url): void
